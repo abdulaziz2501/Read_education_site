@@ -1,0 +1,170 @@
+#version: '3.8'
+#
+#services:
+#  postgres:
+#    image: postgres:15-alpine
+#    container_name: school_postgres
+#    environment:
+#      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+#      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+#      POSTGRES_DB: ${POSTGRES_DB:-school_db}
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data
+#    ports:
+#      - "5432:5432"
+#    healthcheck:
+#      test: ["CMD-SHELL", "pg_isready -U postgres"]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 5
+#    networks:
+#      - school_network
+#
+#  redis:
+#    image: redis:7-alpine
+#    container_name: school_redis
+#    ports:
+#      - "6379:6379"
+#    volumes:
+#      - redis_data:/data
+#    healthcheck:
+#      test: ["CMD", "redis-cli", "ping"]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 5
+#    networks:
+#      - school_network
+#
+#  app:
+#    build: .
+#    container_name: school_app
+#    command: >
+#      sh -c "alembic upgrade head &&
+#             python scripts/seed_admin.py &&
+#             gunicorn app.main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000"
+#    volumes:
+#      - static_volume:/app/static
+#      - media_volume:/app/media
+#      - certificates_volume:/app/certificates
+#      - logs_volume:/app/logs
+#    environment:
+#      - ENVIRONMENT=${ENVIRONMENT:-production}
+#      - POSTGRES_SERVER=postgres
+#      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+#      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
+#      - POSTGRES_DB=${POSTGRES_DB:-school_db}
+#      - REDIS_HOST=redis
+#      - SECRET_KEY=${SECRET_KEY:-your-secret-key-here}
+#      - BASE_URL=${BASE_URL:-https://yourdomain.uz}
+#    depends_on:
+#      postgres:
+#        condition: service_healthy
+#      redis:
+#        condition: service_healthy
+#    networks:
+#      - school_network
+#
+#  nginx:
+#    image: nginx:1.25-alpine
+#    container_name: school_nginx
+#    volumes:
+#      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+#      - static_volume:/static:ro
+#      - media_volume:/media:ro
+#      - certificates_volume:/certificates:ro
+#    ports:
+#      - "80:80"
+#      - "443:443"
+#    depends_on:
+#      - app
+#    networks:
+#      - school_network
+#
+#volumes:
+#  postgres_data:
+#  redis_data:
+#  static_volume:
+#  media_volume:
+#  certificates_volume:
+#  logs_volume:
+#
+#networks:
+#  school_network:
+#    driver: bridge
+
+
+
+version: '3.8'
+
+services:
+  # postgres serviceni butunlay o'chirib tashlang
+  # redis va boshqa servicelarni qoldirishingiz mumkin
+
+  redis:
+    image: redis:7-alpine
+    container_name: school_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - school_network
+
+  app:
+    build: .
+    container_name: school_app
+    command: >
+      sh -c "alembic upgrade head &&
+             python scripts/seed_admin.py &&
+             gunicorn app.main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000"
+    volumes:
+      - static_volume:/app/static
+      - media_volume:/app/media
+      - certificates_volume:/app/certificates
+      - logs_volume:/app/logs
+      - ./school.db:/app/school.db  # SQLite faylini volume qilish
+    environment:
+      - ENVIRONMENT=${ENVIRONMENT:-production}
+      # POSTGRES o'rniga SQLite ishlatiladi
+      - DATABASE_URL=sqlite+aiosqlite:///./school.db
+      - REDIS_HOST=redis
+      - SECRET_KEY=${SECRET_KEY:-your-secret-key-here}
+      - BASE_URL=${BASE_URL:-https://yourdomain.uz}
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - school_network
+
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: school_nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - static_volume:/static:ro
+      - media_volume:/media:ro
+      - certificates_volume:/certificates:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - app
+    networks:
+      - school_network
+
+volumes:
+  redis_data:
+  static_volume:
+  media_volume:
+  certificates_volume:
+  logs_volume:
+  # postgres_data ni o'chirib tashlang
+
+networks:
+  school_network:
+    driver: bridge
