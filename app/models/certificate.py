@@ -23,7 +23,7 @@ class Certificate(Base):
     qr_code = Column(Text, nullable=True)  # Store QR code as base64 or path
     pdf_path = Column(String(500), nullable=True)
     is_valid = Column(Boolean, default=True)
-    metadata = Column(Text, nullable=True)  # JSON string for additional data
+    meta_data = Column(Text, nullable=True)  # JSON string for additional data
     issued_by = Column(String(36), ForeignKey("users.id"), nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 

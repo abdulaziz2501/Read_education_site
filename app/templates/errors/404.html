@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}404 - Page Not Found - {{ super() }}{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full text-center space-y-8" data-aos="zoom-in">
+        <div>
+            <h1 class="text-9xl font-extrabold text-blue-600 tracking-widest">404</h1>
+            <div class="bg-blue-600 text-white px-2 text-sm rounded rotate-12 absolute -mt-[3] ml-28">
+                Page Not Found
+            </div>
+        </div>
+
+        <h2 class="mt-6 text-3xl font-bold text-gray-900">Oops! Looks like you're lost.</h2>
+
+        <p class="mt-2 text-lg text-gray-600">
+            The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
+        </p>
+
+        <div class="mt-8 flex justify-center gap-4">
+            <a href="/"
+                class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-300">
+                <i class="fas fa-home mr-2"></i> Go to Homepage
+            </a>
+            <a href="/contact"
+                class="inline-flex items-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-300">
+                Contact Support
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

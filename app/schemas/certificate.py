@@ -13,7 +13,7 @@ class CertificateBase(BaseModel):
     expiry_date: Optional[datetime] = None
 
 class CertificateCreate(CertificateBase):
-    issued_by: str
+    issued_by: Optional[str] = None
 
 class CertificateInDB(CertificateBase):
     id: str

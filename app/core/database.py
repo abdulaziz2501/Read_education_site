@@ -9,16 +9,21 @@ from typing import AsyncGenerator
 
 from app.core.config import settings
 
-# SQLite uchun maxsus sozlamalar
+# SQLAlchemy engine configuration
 engine_args = {
     "echo": settings.ENVIRONMENT == "development",
     "future": True,
-    "poolclass": StaticPool,  # SQLite uchun StaticPool ishlatiladi
 }
 
 # SQLite uchun maxsus parametrlar
 if settings.DATABASE_URL.startswith("sqlite"):
+    from sqlalchemy.pool import StaticPool
+    engine_args["poolclass"] = StaticPool
     engine_args["connect_args"] = {"check_same_thread": False}
+else:
+    # Use default connection pool size for PostgreSQL
+    engine_args["pool_size"] = 20
+    engine_args["max_overflow"] = 10
 
 # Create async engine
 engine = create_async_engine(
