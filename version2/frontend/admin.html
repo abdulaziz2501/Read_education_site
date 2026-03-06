@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | READ EDUCATION</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1E40AF',
+                        secondary: '#3B82F6',
+                        dark: '#0F172A',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+
+<body class="bg-slate-50 font-['Inter']">
+    <nav class="bg-dark text-white sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <img src="/static/images/logo.png" class="h-10 w-auto brightness-200" alt="Logo">
+                    <span class="font-['Outfit'] font-bold text-xl">ADMIN PANEL</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span id="userName" class="text-sm font-medium text-slate-300"></span>
+                    <button onclick="auth.logout()"
+                        class="text-sm font-medium text-red-400 hover:text-red-300">Chiqish</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Sidebar Navigation -->
+            <div class="lg:col-span-3 space-y-2">
+                <button onclick="showPanel('users')"
+                    class="w-full text-left px-4 py-3 rounded-xl hover:bg-white font-medium text-slate-600 transition-all flex items-center gap-2 active-tab"
+                    id="btn-users">
+                    <i class="ph ph-users"></i> Talabalar
+                </button>
+                <button onclick="showPanel('courses')"
+                    class="w-full text-left px-4 py-3 rounded-xl hover:bg-white font-medium text-slate-600 transition-all flex items-center gap-2"
+                    id="btn-courses">
+                    <i class="ph ph-book-open"></i> Kurslar
+                </button>
+                <button onclick="showPanel('issue')"
+                    class="w-full text-left px-4 py-3 rounded-xl hover:bg-white font-medium text-slate-600 transition-all flex items-center gap-2"
+                    id="btn-issue">
+                    <i class="ph ph-certificate"></i> Sertifikat berish
+                </button>
+            </div>
+
+            <!-- Content Area -->
+            <div class="lg:col-span-9 space-y-6">
+                <!-- Users Panel -->
+                <div id="panel-users" class="panel bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-dark">Talabalar boshqaruvi</h2>
+                        <button onclick="openModal('userModal')"
+                            class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-800">+
+                            Yangi talaba</button>
+                    </div>
+                    <table class="w-full">
+                        <thead>
+                            <tr class="text-left text-slate-400 text-sm border-b border-slate-100">
+                                <th class="pb-3 font-medium">To'liq ism</th>
+                                <th class="pb-3 font-medium">Username</th>
+                                <th class="pb-3 font-medium">Roli</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody"></tbody>
+                    </table>
+                </div>
+
+                <!-- Courses Panel -->
+                <div id="panel-courses" class="panel hidden bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-dark">Kurslar</h2>
+                        <button onclick="openModal('courseModal')"
+                            class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-800">+
+                            Kurs qo'shish</button>
+                    </div>
+                    <table class="w-full">
+                        <thead>
+                            <tr class="text-left text-slate-400 text-sm border-b border-slate-100">
+                                <th class="pb-3 font-medium">Nomi</th>
+                                <th class="pb-3 font-medium">Tavsif</th>
+                            </tr>
+                        </thead>
+                        <tbody id="coursesTableBody"></tbody>
+                    </table>
+                </div>
+
+                <!-- Issue Certificate Panel -->
+                <div id="panel-issue" class="panel hidden bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                    <h2 class="text-2xl font-bold text-dark mb-6">Sertifikat tayyorlash</h2>
+                    <form id="issueForm" class="space-y-4 max-w-lg">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Talabani tanlang</label>
+                            <select id="selectStudent" required
+                                class="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none"></select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Kursni tanlang</label>
+                            <select id="selectCourse" required
+                                class="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none"></select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Sertifikat ID
+                                (RE-YYYY-XXX)</label>
+                            <input type="text" id="certId" required placeholder="RE-2025-001"
+                                class="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Berilgan sana</label>
+                            <input type="date" id="issueDate" required
+                                class="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none">
+                        </div>
+                        <button type="submit"
+                            class="w-full bg-primary text-white py-3 rounded-lg font-bold hover:bg-blue-800">Generatsiya
+                            qilish</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modals -->
+    <div id="userModal" class="fixed inset-0 bg-dark/50 hidden flex items-center justify-center p-4 z-[60]">
+        <div class="bg-white p-8 rounded-2xl w-full max-w-md shadow-2xl">
+            <h3 class="text-xl font-bold mb-4">Yangi talaba qo'shish</h3>
+            <form id="newUserForm" class="space-y-4">
+                <input type="text" name="full_name" placeholder="To'liq ismi" required
+                    class="w-full px-4 py-2 border rounded-lg">
+                <input type="text" name="username" placeholder="Login" required
+                    class="w-full px-4 py-2 border rounded-lg">
+                <input type="password" name="password" placeholder="Parol" required
+                    class="w-full px-4 py-2 border rounded-lg">
+                <select name="role" class="w-full px-4 py-2 border rounded-lg">
+                    <option value="student">Student</option>
+                    <option value="admin">Admin</option>
+                </select>
+                <div class="flex gap-2">
+                    <button type="button" onclick="closeModal('userModal')"
+                        class="flex-1 py-2 bg-slate-100 rounded-lg">Bekor qilish</button>
+                    <button type="submit" class="flex-1 py-2 bg-primary text-white rounded-lg">Saqlash</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Similar Modal for Courses -->
+    <div id="courseModal" class="fixed inset-0 bg-dark/50 hidden flex items-center justify-center p-4 z-[60]">
+        <div class="bg-white p-8 rounded-2xl w-full max-w-md shadow-2xl">
+            <h3 class="text-xl font-bold mb-4">Yangi kurs qo'shish</h3>
+            <form id="newCourseForm" class="space-y-4">
+                <input type="text" name="name" placeholder="Kurs nomi" required
+                    class="w-full px-4 py-2 border rounded-lg">
+                <textarea name="description" placeholder="Tavsif" class="w-full px-4 py-2 border rounded-lg"></textarea>
+                <div class="flex gap-2">
+                    <button type="button" onclick="closeModal('courseModal')"
+                        class="flex-1 py-2 bg-slate-100 rounded-lg">Bekor qilish</button>
+                    <button type="submit" class="flex-1 py-2 bg-primary text-white rounded-lg">Saqlash</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/static/js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const user = await auth.checkAuthAndRedirect();
+            if (user && user.role === 'admin') {
+                document.getElementById('userName').innerText = user.username;
+                loadData();
+            }
+        });
+
+        function showPanel(id) {
+            document.querySelectorAll('.panel').forEach(p => p.classList.add('hidden'));
+            document.getElementById('panel-' + id).classList.remove('hidden');
+
+            document.querySelectorAll('[id^="btn-"]').forEach(b => b.classList.remove('active-tab', 'bg-white', 'text-primary'));
+            const activeBtn = document.getElementById('btn-' + id);
+            activeBtn.classList.add('bg-white', 'text-primary');
+        }
+
+        async function loadData() {
+            // Load Users
+            const usersRes = await auth.fetchWithAuth('/api/admin/users');
+            if (usersRes.ok) {
+                const users = await usersRes.json();
+                const tbody = document.getElementById('usersTableBody');
+                const selectS = document.getElementById('selectStudent');
+                tbody.innerHTML = users.map(u => `<tr class="border-b border-slate-50 border-spacing-2">
+                    <td class="py-4 text-sm font-medium text-dark">${u.full_name}</td>
+                    <td class="py-4 text-sm text-slate-500">${u.username}</td>
+                    <td class="py-4 text-sm"><span class="px-2 py-1 ${u.role === 'admin' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700'} rounded-md text-xs uppercase font-bold">${u.role}</span></td>
+                </tr>`).join('');
+                selectS.innerHTML = users.map(u => `<option value="${u.id}">${u.full_name} (@${u.username})</option>`).join('');
+            }
+
+            // Load Courses
+            const coursesRes = await auth.fetchWithAuth('/api/admin/courses');
+            if (coursesRes.ok) {
+                const courses = await coursesRes.json();
+                const tbody = document.getElementById('coursesTableBody');
+                const selectC = document.getElementById('selectCourse');
+                tbody.innerHTML = courses.map(c => `<tr>
+                    <td class="py-4 text-sm font-medium text-dark">${c.name}</td>
+                    <td class="py-4 text-sm text-slate-500">${c.description || ''}</td>
+                </tr>`).join('');
+                selectC.innerHTML = courses.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+            }
+        }
+
+        function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+        function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+        // Form Submit Handler
+        document.getElementById('newUserForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const data = Object.fromEntries(new FormData(e.target));
+            const res = await auth.fetchWithAuth('/api/admin/users', {
+                method: 'POST',
+                body: JSON.stringify(data)
+            });
+            if (res.ok) { closeModal('userModal'); loadData(); }
+        };
+
+        document.getElementById('newCourseForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const data = Object.fromEntries(new FormData(e.target));
+            const res = await auth.fetchWithAuth('/api/admin/courses', {
+                method: 'POST',
+                body: JSON.stringify(data)
+            });
+            if (res.ok) { closeModal('courseModal'); loadData(); }
+        };
+
+        document.getElementById('issueForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const data = {
+                student_id: parseInt(document.getElementById('selectStudent').value),
+                course_id: parseInt(document.getElementById('selectCourse').value),
+                certificate_id: document.getElementById('certId').value,
+                issue_date: document.getElementById('issueDate').value
+            };
+            const res = await auth.fetchWithAuth('/api/admin/issue-certificate', {
+                method: 'POST',
+                body: JSON.stringify(data)
+            });
+            if (res.ok) {
+                alert('Sertifikat muvaffaqiyatli generatsiya qilindi!');
+                e.target.reset();
+            } else {
+                alert('Xatolik: Bunday ID mavjud bo\'lishi mumkin.');
+            }
+        };
+
+        showPanel('users');
+    </script>
+
+    <style>
+        .active-tab {
+            background-color: white;
+            color: #1E40AF !important;
+        }
+    </style>
+</body>
+
+</html>

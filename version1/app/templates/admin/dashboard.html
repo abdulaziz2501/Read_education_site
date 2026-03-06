@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-100">
+    <!-- Admin Navigation -->
+    <nav class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <i class="fas fa-cog text-2xl text-gray-600 mr-3"></i>
+                    <span class="text-xl font-semibold text-gray-800">Admin Dashboard</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-600">Welcome, {{ user.full_name }}</span>
+                    <a href="/api/auth/logout" class="text-sm text-red-600 hover:text-red-800">
+                        <i class="fas fa-sign-out-alt mr-1"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <!-- Students Card -->
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-blue-500 rounded-lg p-3">
+                            <i class="fas fa-users text-2xl text-white"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Total Students</p>
+                            <p class="text-2xl font-semibold text-gray-900">{{ stats.students }}</p>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <a href="/admin/students" class="text-sm text-blue-600 hover:text-blue-800">
+                            View all students <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Courses Card -->
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-green-500 rounded-lg p-3">
+                            <i class="fas fa-book text-2xl text-white"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Active Courses</p>
+                            <p class="text-2xl font-semibold text-gray-900">{{ stats.courses }}</p>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <a href="/admin/courses" class="text-sm text-green-600 hover:text-green-800">
+                            Manage courses <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Enrollments Card -->
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-purple-500 rounded-lg p-3">
+                            <i class="fas fa-user-graduate text-2xl text-white"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Active Enrollments</p>
+                            <p class="text-2xl font-semibold text-gray-900">{{ stats.enrollments }}</p>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <a href="/admin/enrollments" class="text-sm text-purple-600 hover:text-purple-800">
+                            View enrollments <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Certificates Card -->
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-yellow-500 rounded-lg p-3">
+                            <i class="fas fa-certificate text-2xl text-white"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Certificates Issued</p>
+                            <p class="text-2xl font-semibold text-gray-900">{{ stats.certificates }}</p>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <a href="/admin/certificates" class="text-sm text-yellow-600 hover:text-yellow-800">
+                            Manage certificates <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quick Actions -->
+            <div class="bg-white rounded-lg shadow mb-8">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-800">Quick Actions</h3>
+                </div>
+                <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <a href="/admin/students/new" class="flex items-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition">
+                        <i class="fas fa-user-plus text-2xl text-blue-600 mr-4"></i>
+                        <div>
+                            <h4 class="font-semibold text-gray-800">Add New Student</h4>
+                            <p class="text-sm text-gray-600">Register a new student</p>
+                        </div>
+                    </a>
+                    
+                    <a href="/admin/enrollments/new" class="flex items-center p-4 bg-green-50 rounded-lg hover:bg-green-100 transition">
+                        <i class="fas fa-pen text-2xl text-green-600 mr-4"></i>
+                        <div>
+                            <h4 class="font-semibold text-gray-800">New Enrollment</h4>
+                            <p class="text-sm text-gray-600">Enroll student in course</p>
+                        </div>
+                    </a>
+                    
+                    <a href="/admin/certificates/issue" class="flex items-center p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition">
+                        <i class="fas fa-award text-2xl text-purple-600 mr-4"></i>
+                        <div>
+                            <h4 class="font-semibold text-gray-800">Issue Certificate</h4>
+                            <p class="text-sm text-gray-600">Generate new certificate</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Recent Enrollments -->
+            <div class="bg-white rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                    <h3 class="text-lg font-semibold text-gray-800">Recent Enrollments</h3>
+                    <a href="/admin/enrollments" class="text-sm text-blue-600 hover:text-blue-800">View All</a>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Course</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Progress</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            {% for enrollment in recent_enrollments %}
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-gray-900">{{ enrollment.student.full_name }}</div>
+                                    <div class="text-sm text-gray-500">{{ enrollment.student.email }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">{{ enrollment.course.title }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-500">{{ enrollment.enrollment_date.strftime('%Y-%m-%d') }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                        {% if enrollment.status == 'active' %}bg-green-100 text-green-800
+                                        {% elif enrollment.status == 'completed' %}bg-blue-100 text-blue-800
+                                        {% elif enrollment.status == 'pending' %}bg-yellow-100 text-yellow-800
+                                        {% else %}bg-gray-100 text-gray-800{% endif %}">
+                                        {{ enrollment.status }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div class="bg-blue-600 h-2.5 rounded-full" style="width: {{ enrollment.progress }}%"></div>
+                                    </div>
+                                    <span class="text-xs text-gray-500 mt-1">{{ enrollment.progress }}%</span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

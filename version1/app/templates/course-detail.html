@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% block title %}{{ course.title }} - {{ super() }}{% endblock %}
+
+{% block content %}
+<!-- Course Hero Section -->
+<div class="bg-gray-900 text-white pt-24 pb-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-3 gap-12">
+            <!-- Course Info -->
+            <div class="md:col-span-2 space-y-6" data-aos="fade-right">
+                <nav class="flex" aria-label="Breadcrumb">
+                    <ol class="inline-flex items-center space-x-1 md:space-x-3 text-sm text-gray-400">
+                        <li class="inline-flex items-center">
+                            <a href="/" class="hover:text-white transition"><i class="fas fa-home mr-2"></i>Home</a>
+                        </li>
+                        <li>
+                            <div class="flex items-center">
+                                <i class="fas fa-chevron-right mx-2 text-gray-600"></i>
+                                <a href="/courses" class="hover:text-white transition">Courses</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex items-center">
+                                <i class="fas fa-chevron-right mx-2 text-gray-600"></i>
+                                <span class="text-gray-200">{{ course.category }}</span>
+                            </div>
+                        </li>
+                    </ol>
+                </nav>
+
+                <h1 class="text-4xl md:text-5xl font-bold tracking-tight">{{ course.title }}</h1>
+                <p class="text-xl text-gray-300 leading-relaxed max-w-3xl">
+                    {{ course.short_description or course.description|truncate(200) }}
+                </p>
+
+                <div class="flex flex-wrap items-center gap-6 text-sm">
+                    <div class="flex items-center gap-2">
+                        <div
+                            class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center bg-opacity-20 text-blue-400">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-400">Duration</p>
+                            <p class="font-semibold">{{ course.duration_weeks }} Weeks</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div
+                            class="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center bg-opacity-20 text-purple-400">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-400">Effort</p>
+                            <p class="font-semibold">{{ course.hours_per_week }} hrs/week</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div
+                            class="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center bg-opacity-20 text-green-400">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-400">Target</p>
+                            <p class="font-semibold">{{ course.target_audience or 'All levels' }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enrollment Card Sticky -->
+            <div class="md:col-span-1" data-aos="fade-left">
+                <div
+                    class="bg-white rounded-xl shadow-2xl overflow-hidden md:-mt-8 md:sticky md:top-24 border border-gray-100 z-10 transition-transform hover:scale-[1.02] duration-300">
+                    <div class="h-48 bg-gray-200 relative">
+                        {% if course.thumbnail %}
+                        <img src="{{ course.thumbnail }}" alt="{{ course.title }}" class="w-full h-full object-cover">
+                        {% else %}
+                        <div
+                            class="w-full h-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
+                            <i class="fas fa-laptop-code text-6xl text-white opacity-50"></i>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="p-8">
+                        <div class="text-3xl font-bold text-gray-900 mb-4">${{ "{:,.2f}".format(course.price) }}</div>
+
+                        <a href="/contact?subject=Enroll in {{ course.title }}"
+                            class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center font-bold py-3 px-4 rounded-lg transition duration-300 shadow-md hover:shadow-lg mb-4">
+                            Enroll Now
+                        </a>
+                        <p class="text-center text-sm text-gray-500 mb-6">30-day money-back guarantee</p>
+
+                        <div class="space-y-4 text-gray-700">
+                            <h4 class="font-bold border-b pb-2">This course includes:</h4>
+                            <ul class="space-y-3 text-sm">
+                                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                    Expert instructor guidance</li>
+                                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                    Premium course materials</li>
+                                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i> Full
+                                    lifetime access</li>
+                                <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                    Certificate of completion</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Course Content Sections -->
+<section class="py-16 bg-white min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-3 gap-12">
+            <div class="md:col-span-2 space-y-12">
+
+                <!-- Description -->
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Course Overview</h2>
+                    <div class="prose prose-blue max-w-none text-gray-600 leading-relaxed whitespace-pre-wrap">
+                        {{ course.description }}
+                    </div>
+                </div>
+
+                <!-- Curriculum -->
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Curriculum</h2>
+                    {% if course.curriculum %}
+                    <div class="bg-gray-50 rounded-xl border border-gray-100 overflow-hidden">
+                        {% for item in course.curriculum %}
+                        <div class="border-b border-gray-100 last:border-0 p-4 hover:bg-white transition duration-200">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold shrink-0">
+                                    {{ loop.index }}
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-900">{{ item.get('title', item) }}</h4>
+                                    {% if item.get('description') %}
+                                    <p class="text-sm text-gray-500 mt-1">{{ item.get('description') }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="bg-gray-50 rounded-xl p-6 border border-gray-100 text-center text-gray-500 italic">
+                        Detailed curriculum will be provided by the instructor upon enrollment.
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Requirements -->
+                {% if course.requirements %}
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Prerequisites</h2>
+                    <ul class="list-disc pl-6 space-y-2 text-gray-600">
+                        {% for req in course.requirements %}
+                        <li>{{ req }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

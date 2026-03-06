@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>READ EDUCATION | Modern Learning</title>
+    <meta name="description" content="Professional education center with modern courses and certificate verification.">
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom Config for Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1E40AF', // Blue 800
+                        secondary: '#3B82F6', // Blue 500
+                        accent: '#F59E0B',
+                        dark: '#0F172A',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@500;700;800&display=swap"
+        rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/style.css">
+    <!-- Phosphor Icons or Heroicons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+
+<body
+    class="bg-slate-50 text-slate-800 antialiased font-sans selection:bg-primary selection:text-white overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-white/80 backdrop-blur-md border-b border-white/20 shadow-sm"
+        id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+
+
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer">
+                    <!-- Rasm atrofidagi kerakmas fon va kichik chegarali divni olib tashladik -->
+                    <img src="/static/images/logo.png" class="h-14 w-auto object-contain" alt="READ EDUCATION Logo">
+
+                </div>
+
+
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#home"
+                        class="text-sm font-medium text-slate-600 hover:text-primary transition-colors">Asosiy
+                        sahifa</a>
+                    <a href="#about" class="text-sm font-medium text-slate-600 hover:text-primary transition-colors">Biz
+                        haqimizda</a>
+                    <a href="#courses"
+                        class="text-sm font-medium text-slate-600 hover:text-primary transition-colors">Kurslarimiz</a>
+                    <a href="#teachers"
+                        class="text-sm font-medium text-slate-600 hover:text-primary transition-colors">O'qituvchilar</a>
+                    <a href="/verify"
+                        class="text-sm font-medium px-4 py-2 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-white transition-all transform hover:-translate-y-0.5">Sertifikatni
+                        tekshirish</a>
+
+                    <div id="authNav">
+                        <a href="/login"
+                            class="text-sm font-bold px-6 py-2 rounded-full bg-primary text-white hover:bg-blue-900 transition-all shadow-md">Kirish</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden min-h-screen flex items-center">
+        <!-- Background Decorations -->
+        <div
+            class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-blue-400 mix-blend-multiply filter blur-3xl opacity-20 animate-blob">
+        </div>
+        <div
+            class="absolute top-0 left-0 -ml-20 mt-20 w-72 h-72 rounded-full bg-purple-400 mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="text-center max-w-3xl mx-auto">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 text-primary text-sm font-medium mb-8 animate-fade-in-up">
+                    <span class="flex h-2 w-2 relative">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                    </span>
+                    Empowering Future Leaders
+                </div>
+                <h1
+                    class="text-5xl md:text-7xl font-heading font-bold text-dark leading-tight mb-6 animate-fade-in-up animation-delay-100">
+                    Master the skills of <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">tomorrow.</span>
+                </h1>
+                <p class="text-lg md:text-xl text-slate-600 mb-10 animate-fade-in-up animation-delay-200">
+                    Jahon darajasidagi o'qitish, zamonaviy o'quv dasturidan bahramand bo'lish va butun dunyo bo'ylab
+                    darhol tasdiqlanadigan professional sertifikatlarga ega bo'lish uchun READ EDUCATIONga qo'shiling..
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up animation-delay-300">
+                    <a href="#courses"
+                        class="px-8 py-4 rounded-full bg-primary text-white font-medium hover:bg-blue-900 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">Kurslarimiz
+                        haqida</a>
+                    <a href="/verify"
+                        class="px-8 py-4 rounded-full bg-white text-slate-700 border border-slate-200 font-medium hover:border-primary hover:text-primary transition-all flex items-center justify-center gap-2">
+                        <i class="ph ph-certificate text-xl"></i> Sertifikatni tekshirish
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="relative group">
+                    <div
+                        class="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200">
+                    </div>
+                    <img src="/static/images/teachers/title.avif" alt="Students learning"
+                        class="relative rounded-2xl shadow-xl w-full h-96 object-cover object-center transform transition duration-500 hover:scale-[1.02]">
+                </div>
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-heading font-bold text-dark mb-6">Zamonaviy davr uchun ta'limni
+                        qayta belgilash</h2>
+                    <p class="text-slate-600 text-lg mb-6 leading-relaxed">
+                        READ EDUCATION da biz amaliy ko'nikmalar o'rgatamiz.
+                        Bizning o'quv dasturimiz tajribali mutaxassislar tomonidan sizning real
+                        hayotda muhim bo'lgan ko'nikmalarga ega bo'lishingizni ta'minlash uchun ishlab chiqilgan.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <i class="ph-fill ph-check-circle text-primary text-2xl mt-0.5"></i>
+                            <span class="text-slate-700 font-medium text-lg">Tajribali o'qituvchilar</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="ph-fill ph-check-circle text-primary text-2xl mt-0.5"></i>
+                            <span class="text-slate-700 font-medium text-lg">Loyihaga asoslangan o'rganish</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="ph-fill ph-check-circle text-primary text-2xl mt-0.5"></i>
+                            <span class="text-slate-700 font-medium text-lg">QR-code orqali tekshiriladigan
+                                sertifikatlar</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses" class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-heading font-bold text-dark mb-4">Bizning kurslarimiz</h2>
+                <p class="text-slate-600 text-lg max-w-2xl mx-auto">Barcha darajalar uchun moslashtirilgan keng
+                    qamrovli,
+                    loyihaga asoslangan kurslarimiz bilan yangi ko'nikmalarni egallang.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Course Card 1 -->
+                <div
+                    class="bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group">
+                    <div class="h-48 overflow-hidden">
+                        <img src="/static/images/subjects/matematika.jpg" alt="Matematika"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="p-6">
+                        <div class="text-xs font-bold uppercase tracking-wider text-secondary mb-2">Boshlang'ich ta'lim
+                        </div>
+                        <h3
+                            class="text-xl font-heading font-bold text-dark mb-2 group-hover:text-primary transition-colors">
+                            Matematika</h3>
+                        <p class="text-slate-500 mb-4 line-clamp-2">Bolalar uchun interaktiv va qiziqarli matematika
+                            darslari.</p>
+                        <div class="flex justify-between items-center border-t border-slate-100 pt-4 mt-auto">
+                            <div class="flex items-center gap-2 text-sm text-slate-500">
+                                <i class="ph ph-clock"></i> 3 Oy
+                            </div>
+                            <span class="font-bold text-dark">350 000 so'm</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Card 2 -->
+                <div
+                    class="bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group">
+                    <div class="h-48 overflow-hidden">
+                        <img src="/static/images/subjects/ingliztili.jpg" alt="Ingliz tili"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="p-6">
+                        <div class="text-xs font-bold uppercase tracking-wider text-secondary mb-2">Xorijiy tillar
+                        </div>
+                        <h3
+                            class="text-xl font-heading font-bold text-dark mb-2 group-hover:text-primary transition-colors">
+                            Ingliz tili</h3>
+                        <p class="text-slate-500 mb-4 line-clamp-2">Yosh bolalar uchun ingliz tilini o'yinlar va
+                            qiziqarli mashg'ulotlar orqali o'rganish.</p>
+                        <div class="flex justify-between items-center border-t border-slate-100 pt-4 mt-auto">
+                            <div class="flex items-center gap-2 text-sm text-slate-500">
+                                <i class="ph ph-clock"></i> 3 Oy
+                            </div>
+                            <span class="font-bold text-dark">350 000 so'm</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Card 3 -->
+                <div
+                    class="bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group">
+                    <div class="h-48 overflow-hidden">
+                        <img src="/static/images/subjects/kompyuter.jpg" alt="Kompyuter savodxonligi"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="p-6">
+                        <div class="text-xs font-bold uppercase tracking-wider text-secondary mb-2">IT Dastlabki qadam
+                        </div>
+                        <h3
+                            class="text-xl font-heading font-bold text-dark mb-2 group-hover:text-primary transition-colors">
+                            Kompyuter savodxonligi</h3>
+                        <p class="text-slate-500 mb-4 line-clamp-2">Kompyuterdan to'g'ri foydalanish, MS Office (Word,
+                            Excel) va internetda ishlash sirlari.</p>
+                        <div class="flex justify-between items-center border-t border-slate-100 pt-4 mt-auto">
+                            <div class="flex items-center gap-2 text-sm text-slate-500">
+                                <i class="ph ph-clock"></i> 1 Oy
+                            </div>
+                            <span class="font-bold text-dark">350 000 so'm</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Card 4 -->
+                <div
+                    class="bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group">
+                    <div class="h-48 overflow-hidden">
+                        <img src="/static/images/subjects/python.png" alt="Python asoslari"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="p-6">
+                        <div class="text-xs font-bold uppercase tracking-wider text-secondary mb-2">Dasturlash</div>
+                        <h3
+                            class="text-xl font-heading font-bold text-dark mb-2 group-hover:text-primary transition-colors">
+                            Dasturlashdan python asoslari</h3>
+                        <p class="text-slate-500 mb-4 line-clamp-2">Dasturlash olamiga qadam: Python tilining sintaksisi
+                            va dasturlash mantig'i.</p>
+                        <div class="flex justify-between items-center border-t border-slate-100 pt-4 mt-auto">
+                            <div class="flex items-center gap-2 text-sm text-slate-500">
+                                <i class="ph ph-clock"></i> 3 Oy
+                            </div>
+                            <span class="font-bold text-dark">500 000 so'm</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Card 5 -->
+                <div
+                    class="bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group">
+                    <div class="h-48 overflow-hidden">
+                        <img src="/static/images/subjects/buxgalteriya.jpg" alt="Buxgalteriya kurslari"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="p-6">
+                        <div class="text-xs font-bold uppercase tracking-wider text-secondary mb-2">Moliyaviy
+                            savodxonlik</div>
+                        <h3
+                            class="text-xl font-heading font-bold text-dark mb-2 group-hover:text-primary transition-colors">
+                            Buxgalteriya kurslari</h3>
+                        <p class="text-slate-500 mb-4 line-clamp-2">Zamonaviy buxgalteriya hisobi, soliqlar va 1C
+                            dasturida amaliy ishlash.</p>
+                        <div class="flex justify-between items-center border-t border-slate-100 pt-4 mt-auto">
+                            <div class="flex items-center gap-2 text-sm text-slate-500">
+                                <i class="ph ph-clock"></i> 2 Oy
+                            </div>
+                            <span class="font-bold text-dark">450 000 so'm</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Card 6 -->
+                <div
+                    class="bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group">
+                    <div class="h-48 overflow-hidden">
+                        <img src="/static/images/subjects/ielts.jpg" alt="IELTS kurslari"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="p-6">
+                        <div class="text-xs font-bold uppercase tracking-wider text-secondary mb-2">Xorijiy tillar</div>
+                        <h3
+                            class="text-xl font-heading font-bold text-dark mb-2 group-hover:text-primary transition-colors">
+                            IELTS kurslari</h3>
+                        <p class="text-slate-500 mb-4 line-clamp-2">IELTS imtihonidan yuqori ball olish uchun intensiv
+                            tayyorgarlik kurslari.</p>
+                        <div class="flex justify-between items-center border-t border-slate-100 pt-4 mt-auto">
+                            <div class="flex items-center gap-2 text-sm text-slate-500">
+                                <i class="ph ph-clock"></i> 4 Oy
+                            </div>
+                            <span class="font-bold text-dark">500 000 so'm</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Teachers Section -->
+    <section id="teachers" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-heading font-bold text-dark mb-4">O'qituvchilarimiz bilan tanishing
+                </h2>
+                <p class="text-slate-600 text-lg max-w-2xl mx-auto">Sinfga haqiqiy o'zining tajribasini olib kiradigan
+                    ustozlardan o'rganing.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Teacher 1 -->
+                <div class="text-center group">
+                    <div
+                        class="relative w-48 h-48 mx-auto mb-6 rounded-full overflow-hidden shadow-lg border-4 border-white bg-slate-200">
+                        <img src="/static/images/teachers/teacher1.jpg" alt="Teacher 1"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <h3 class="text-xl font-heading font-bold text-dark">Teacher Name 1 </h3>
+                    <p class="text-primary font-medium mb-2">Subject</p>
+                    <p class="text-slate-500 text-sm">O'qituvchi haqida qisqacha ma'lumot</p>
+                </div>
+                <!-- Teacher 2 -->
+                <div class="text-center group mt-8 md:mt-0">
+                    <div
+                        class="relative w-48 h-48 mx-auto mb-6 rounded-full overflow-hidden shadow-lg border-4 border-white bg-slate-200">
+                        <img src="/static/images/teachers/teacher2.jpg" alt="Teacher 2"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <h3 class="text-xl font-heading font-bold text-dark">Teacher Name 2 </h3>
+                    <p class="text-primary font-medium mb-2">Subject</p>
+                    <p class="text-slate-500 text-sm">O'qituvchi haqida qisqacha ma'lumot</p>
+                </div>
+                <!-- Teacher 3 -->
+                <div class="text-center group mt-8 md:mt-0">
+                    <div
+                        class="relative w-48 h-48 mx-auto mb-6 rounded-full overflow-hidden shadow-lg border-4 border-white bg-slate-200">
+                        <img src="/static/images/teachers/teacher3.jpg" alt="Teacher 3"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <h3 class="text-xl font-heading font-bold text-dark">Teacher Name 3 </h3>
+                    <p class="text-primary font-medium mb-2">Subject</p>
+                    <p class="text-slate-500 text-sm">O'qituvchi haqida qisqacha ma'lumot</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-2 mb-6">
+                        <span class="font-heading font-bold text-xl tracking-tight">READ EDUCATION</span>
+                    </div>
+                    <p class="text-slate-400 max-w-sm mb-6">Sifatli va ochiq ta'lim orqali texnologiya yetakchilarining
+                        keyingi avlodini shakllantirish.</p>
+                    <div class="flex gap-4">
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-colors"><i
+                                class="ph ph-telegram-logo text-xl"></i></a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-colors"><i
+                                class="ph ph-instagram-logo text-xl"></i></a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-colors"><i
+                                class="ph ph-linkedin-logo text-xl"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-6 text-slate-200">Tezkor Havolalar</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#about" class="text-slate-400 hover:text-white transition-colors">Biz haqimizda</a>
+                        </li>
+                        <li><a href="#courses" class="text-slate-400 hover:text-white transition-colors">Kurslar</a>
+                        </li>
+                        <li><a href="/verify" class="text-slate-400 hover:text-white transition-colors">Sertifikatni
+                                tekshirish</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-6 text-slate-200">Aloqa</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-2 text-slate-400"><i class="ph ph-envelope-simple"></i>
+                            [EMAIL_ADDRESS]</li>
+                        <li class="flex items-center gap-2 text-slate-400"><i class="ph ph-phone"></i> +998 99 845 66 45
+                        </li>
+                        <li class="flex items-center gap-2 text-slate-400"><i class="ph ph-map-pin"></i> Tashkent,
+                            Uzbekistan</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 mt-12 pt-8 text-center text-slate-500 text-sm">
+                &copy; 2026 READ EDUCATION. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/auth.js"></script>
+    <script>
+        // Hero Dynamic Button Update
+        async function updateNav() {
+            const user = await auth.getUser();
+            const nav = document.getElementById('authNav');
+            if (user) {
+                const target = user.role === 'admin' ? '/admin' : '/dashboard';
+                nav.innerHTML = `
+                    <a href="${target}" class="text-sm font-bold px-6 py-2 rounded-full bg-slate-100 text-primary border border-primary/20 hover:bg-primary hover:text-white transition-all">Profil (@${user.username})</a>
+                `;
+            }
+        }
+        updateNav();
+    </script>
+</body>
+
+</html>
